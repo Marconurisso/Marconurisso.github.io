@@ -193,7 +193,7 @@
     /* Research grid */
     .research-interests {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      grid-template-columns: repeat(2, minmax(240px, 1fr));
       gap: 1.5rem;
     }
 
@@ -203,14 +203,33 @@
     }
 
     /* Publications */
-    .publication {
+    /*.publication {
       display: grid;
       grid-template-columns: 160px 1fr;
       gap: 1.5rem;
       margin-bottom: 2rem;
       align-items: center;
+    }*/
+    .publication {
+    position: relative;
+    display: grid;
+    gap: 1.5rem;
+    padding-left: 1rem;
+    margin-bottom: 2rem;
+    align-items: center;
+    grid-template-columns: 160px 1fr;
     }
-
+    .publication::before {
+        content: "";
+        position: absolute;
+        left: -22px;
+        top: 50%;
+        width: 8px;
+        height: 8px;
+        background: var(--accent);
+        border-radius: 50%;
+        transform: translateY(-50%);
+    }
    
     .pub-figure {
     position: relative;
