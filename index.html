@@ -1,572 +1,512 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Name - Applied Mathematics PhD</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marco Nurisso · Applied Mathematics</title>
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: #f8f9fa;
-            position: relative;
-        }
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-        #simplicialCanvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
-        }
+  <style>
+    :root {
+      --bg: #f5f7fa;
+      --fg: #1f2933;
+      --muted: #6b7280;
+      --accent: #2563eb;   /* blue */
+      --accent-soft: #dbeafe;
+      --card: #ffffff;
+      --border: #e5e7eb;
+    }
 
-        .content-wrapper {
-            position: relative;
-            z-index: 1;
-        }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-        header {
-            background: linear-gradient(135deg, rgba(21, 70, 118, 0.936) 0%, rgba(27, 74, 120, 0.056) 100%);
-            color: white;
-            padding: 3rem 0;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-            position: relative;
-        }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      line-height: 1.6;
+    }
 
-        .header-content {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-        }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
 
-        .profile-photo {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            border: 4px solid white;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            object-fit: cover;
-            background: #ecf0f1;
-        }
+    /* =====================
+       HERO / BANNER
+       ===================== */
 
-        .header-text {
-            flex: 1;
-            min-width: 250px;
-        }
+    header {
+      position: relative;
+      overflow: hidden;
+      background: radial-gradient(1200px 600px at 20% 10%, #e0e7ff, transparent),
+                  radial-gradient(1000px 500px at 80% 30%, #19767eda, transparent),
+                  linear-gradient(135deg, #0f172a, #020617);
+      color: white;
+    }
 
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
+    #hero-canvas {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
 
-        header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-        }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 5rem 2rem 4rem;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
 
-        header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            margin-bottom: 1rem;
-        }
+    .profile-photo {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid rgb(255, 255, 255);
+      background: #111827;
+    }
 
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
+    header h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
 
-        .social-links a {
-            color: white;
-            background: rgba(255,255,255,0.2);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            transition: all 0.3s;
-            font-size: 1.2rem;
-        }
+    header p {
+      margin-top: 0.5rem;
+      font-size: 1.15rem;
+      color: #e5e7eb;
+      max-width: 40rem;
+    }
 
-        .social-links a:hover {
-            background: rgba(255,255,255,0.3);
-            transform: translateY(-3px);
-        }
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
 
-        .cv-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: #3498db00;
-            color: white;
-            padding: 0.8rem 1.5rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s;
-            margin-top: 1rem;
-            box-shadow: 0 2px 8px rgba(52, 152, 219, 0.3);
-        }
+    .social-links a {
+      width: 42px;
+      height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.12);
+      color: white;
+      transition: transform 0.2s, background 0.2s;
+    }
 
-        .cv-button:hover {
-            background: #2980b9;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.4);
-        }
+    .social-links a:hover {
+      transform: translateY(-3px);
+      background: rgba(255,255,255,0.25);
+    }
 
-        nav {
-            background: rgba(255, 255, 255, 0.98);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            backdrop-filter: blur(10px);
-        }
+    .cv-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-top: 1.5rem;
+      padding: 0.7rem 1.4rem;
+      border-radius: 8px;
+      background: var(--accent);
+      color: white;
+      font-weight: 500;
+      box-shadow: 0 6px 20px rgba(37,99,235,0.35);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
 
-        nav ul {
-            list-style: none;
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
+    .cv-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(37,99,235,0.45);
+    }
 
-        nav a {
-            display: block;
-            padding: 1rem 1.5rem;
-            text-decoration: none;
-            color: #2c3e50;
-            font-weight: 500;
-            transition: background 0.3s;
-        }
+    /* =====================
+       NAVIGATION
+       ===================== */
 
-        nav a:hover {
-            background: #ecf0f1;
-        }
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
 
-        main {
-            background: rgba(255, 255, 255, 0.98);
-            margin: 2rem auto;
-            padding: 3rem 2rem;
-            max-width: 900px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            backdrop-filter: blur(10px);
-        }
+    nav ul {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
 
-        section {
-            margin-bottom: 3rem;
-        }
+    nav a {
+      display: block;
+      padding: 1rem 0;
+      font-weight: 500;
+      color: var(--fg);
+    }
 
-        h2 {
-            color: #2c3e50;
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 3px solid #ef8c12;
-        }
+    /* =====================
+       MAIN CONTENT
+       ===================== */
 
-        h3 {
-            color: #34495e;
-            font-size: 1.3rem;
-            margin-top: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
+    main {
+      max-width: 900px;
+      margin: 3rem auto;
+      padding: 0 2rem;
+    }
 
-        .research-interests {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem;
-        }
+    section { margin-bottom: 4rem; }
 
-        .interest-card {
-            background: #ecf0f1;
-            padding: 1.5rem;
-            border-radius: 8px;
-            border-left: 4px solid #3487db;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.015em;
+      border-left: 5px solid var(--accent);
+      padding-left: 0.75rem;
+    }
 
-        .interest-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
+    h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.4rem;
+    }
 
-        .interest-card h3 {
-            margin-top: 0;
-            font-size: 1.1rem;
-        }
+    .card {
+      background: var(--card);
+      border-radius: 14px;
+      padding: 1.5rem;
+      border: 1px solid var(--border);
+    }
 
-        .publication {
-            margin-bottom: 2rem;
-            padding: 1.5rem;
-            background: #f8f9fa;
-            border-radius: 8px;
-            display: flex;
-            gap: 1.5rem;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
+    /* Research grid */
+    .research-interests {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+    }
 
-        .publication:hover {
-            transform: translateX(5px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
+    .interest-card {
+      background: linear-gradient(180deg, #ffffff, #f9fafb);
+      border-left: 4px solid var(--accent);
+    }
 
-        .publication-image {
-            width: 180px;
-            height: 120px;
-            object-fit: cover;
-            border-radius: 6px;
-            flex-shrink: 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 0.8rem;
-            text-align: center;
-            padding: 1rem;
-        }
+    /* Publications */
+    .publication {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+      align-items: center;
+    }
 
-        .publication-content {
-            flex: 1;
-        }
+   
+    .pub-figure {
+    position: relative;
+    height: 150px;
+    border-radius: 10px;
+    overflow: hidden;
+    }
 
-        .publication-title {
-            font-weight: 600;
-            color: #2c3e50;
-            margin-bottom: 0.3rem;
-            font-size: 1.1rem;
-        }
+    .pub-figure img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    }
 
-        .publication-meta {
-            font-size: 0.9rem;
-            color: #7f8c8d;
-            font-style: italic;
-            margin-bottom: 0.5rem;
-        }
+    .pub-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.65);
+    color: white;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.2s;
+    }
 
-        footer {
-            background: linear-gradient(135deg, rgba(44, 62, 80, 0.95) 0%, rgba(52, 73, 94, 0.95) 100%);
-            color: white;
-            text-align: center;
-            padding: 2rem;
-            margin-top: 2rem;
-            position: relative;
-        }
+    .pub-figure:hover .pub-overlay {
+    opacity: 1;
+    }
 
-        a {
-            color: #3498db;
-            text-decoration: none;
-        }
+    .publication-meta {
+      font-size: 0.9rem;
+      color: var(--muted);
+      font-style: italic;
+      margin-bottom: 0.4rem;
+    }
 
-        a:hover {
-            text-decoration: underline;
-        }
+    .pub-list {
+    position: relative;
+    padding-left: 2rem;
+    margin-top: 2rem;
+    }
 
-        @media (max-width: 768px) {
-            header h1 {
-                font-size: 2rem;
-            }
+    .pub-list::before {
+    content: "";
+    position: absolute;
+    left: 6px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--border);
+    }
 
-            .header-content {
-                flex-direction: column;
-                text-align: center;
-            }
+    /* =====================
+       FOOTER
+       ===================== */
 
-            .profile-photo {
-                width: 120px;
-                height: 120px;
-            }
+    footer {
+      margin-top: 4rem;
+      padding: 2rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
 
-            .social-links {
-                justify-content: center;
-            }
+    /* =====================
+       RESPONSIVE
+       ===================== */
 
-            nav a {
-                padding: 0.8rem 1rem;
-                font-size: 0.9rem;
-            }
+    @media (max-width: 768px) {
+      .hero-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
 
-            main {
-                padding: 2rem 1.5rem;
-                margin: 1rem;
-            }
-
-            .publication {
-                flex-direction: column;
-            }
-
-            .publication-image {
-                width: 100%;
-                height: 150px;
-            }
-        }
-    </style>
+      .social-links { justify-content: center; }
+      .publication { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
-    <canvas id="simplicialCanvas"></canvas>
-    
-    <div class="content-wrapper">
-        <header>
-            <div class="container">
-                <div class="header-content">
-                    <img src="photo_crop.jpeg" alt="Marco Nurisso" class="profile-photo">
-                    <div class="header-text">
-                        <h1>Marco Nurisso</h1>
-                        <p>PhD Student in Pure and Applied Mathematics</p>
-                        <div class="social-links">
-                            <a href="mailto:marco.nurisso@polito.it" title="Email">✉</a>
-                            <a href="https://github.com/MarcoNurisso" target="_blank" title="GitHub">⚡</a>
-                            <a href="https://scholar.google.com/citations?user=vAaWpu8AAAAJ" target="_blank" title="Google Scholar">🎓</a>
-                        </div>
-                        <a href="cv.pdf" class="cv-button" download>
-                            📄 CV
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </header>
 
-        <nav>
-            <ul>
-                <li><a href="#about">About</a></li>
-                <li><a href="#research">Research</a></li>
-                <li><a href="#publications">Selected publications</a></li>
-            </ul>
-        </nav>
+<header>
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-content">
+    <img src="photo_crop.jpeg" alt="Marco Nurisso" class="profile-photo" />
+    <div>
+      <h1>Marco Nurisso</h1>
+      <p>PhD student in Pure and Applied Mathematics · Topology, Networks, Learning</p>
 
-        <main>
-            <section id="about"> 
-                <h2>About Me</h2>
-                <p>I am a PhD student in Applied Mathematics at Politecnico di Torino, working under the supervision of Prof. Francesco Vaccarino and Prof. Giovanni Petri. My research interests lie at the intersection of mathematics, computation, and cognition, with a particular focus on understanding complex systems through topological and network-theoretic lenses.</p>
-                
-                <p style="margin-top: 1rem;">My current work explores how topological methods can provide insights into neural network architectures and cognitive processes, particularly examining capacity constraints that appear in both biological and artificial intelligence systems.</p>
-            </section>
+      <div class="social-links">
+        <a href="mailto:marco.nurisso@polito.it" title="Email"><i class="fa-solid fa-envelope"></i></a>
+        <a href="https://github.com/MarcoNurisso" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
+        <a href="https://scholar.google.com/citations?user=vAaWpu8AAAAJ" target="_blank" title="Google Scholar"><i class="fa-solid fa-graduation-cap"></i></a>
+      </div>
 
-            <section id="research">
-                <h2>Research Interests</h2>
-                <div class="research-interests">
-                    <div class="interest-card">
-                        <h3>Applied Topology</h3>
-                        <p>Investigating topological data analysis methods and their applications to complex data structures.</p>
-                    </div>
-                    <div class="interest-card">
-                        <h3>Network Science</h3>
-                        <p>Studying the structure and dynamics of complex networks across various domains.</p>
-                    </div>
-                    <div class="interest-card">
-                        <h3>Neural Networks</h3>
-                        <p>Exploring theoretical and topological aspects of neural network architectures and their learning dynamics.</p>
-                    </div>
-                    <div class="interest-card">
-                        <h3>Cognitive Psychology</h3>
-                        <p>Examining capacity constraints in human cognition and artificial systems from a mathematical perspective.</p>
-                    </div>
-                </div>
-            </section>
-
-            <section id="publications">
-                <h2>Selected publications</h2>
-                
-                <h3>Preprints</h3>
-                <div class="publication">
-                    <div class="publication-image">
-                        <div>Add your figure/visualization here</div>
-                    </div>
-                    <div class="publication-content">
-                        <div class="publication-title">Title of Your Preprint</div>
-                        <div class="publication-meta">Authors (Year). arXiv:XXXX.XXXXX</div>
-                        <p style="font-size: 0.95rem;">Brief description of the paper and its main contributions, including key findings and methodological approaches.</p>
-                    </div>
-                </div>
-
-                <h3>Journal Articles</h3>
-                <div class="publication">
-                    <div class="publication-image">
-                        <div>Add your figure/visualization here</div>
-                    </div>
-                    <div class="publication-content">
-                        <div class="publication-title">Title of Your Published Paper</div>
-                        <div class="publication-meta">Authors (Year). Journal Name, Volume(Issue), pages.</div>
-                        <p style="font-size: 0.95rem;">Brief description of the paper and its main contributions, including key findings and methodological approaches.</p>
-                    </div>
-                </div>
-
-                <h3>Conference Proceedings</h3>
-                <div class="publication">
-                    <div class="publication-image">
-                        <div>Add your figure/visualization here</div>
-                    </div>
-                    <div class="publication-content">
-                        <div class="publication-title">Title of Your Conference Paper</div>
-                        <div class="publication-meta">Authors (Year). Conference Name, Location.</div>
-                        <p style="font-size: 0.95rem;">Brief description of the paper and its main contributions, including key findings and methodological approaches.</p>
-                    </div>
-                </div>
-            </section>
-        </main>
-
-        <footer>
-            <p>&copy; 2025 Marco Nurisso. All rights reserved.</p>
-            <p style="margin-top: 0.5rem; font-size: 0.9rem;">Last updated: December 2024</p>
-        </footer>
+      <a href="cv.pdf" class="cv-button"><i class="fa-solid fa-file-lines"></i> Curriculum Vitae</a>
     </div>
+  </div>
+</header>
 
-    <script>
-        // Simplicial Complex Animation
-        const canvas = document.getElementById('simplicialCanvas');
-        const ctx = canvas.getContext('2d');
-        
-        let width, height;
-        let points = [];
-        let mouse = { x: null, y: null, radius: 150 };
-        
-        function resizeCanvas() {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-        }
-        
-        class Point {
-            constructor(x, y) {
-                this.x = x;
-                this.y = y;
-                this.baseX = x;
-                this.baseY = y;
-                this.vx = (Math.random() - 0.5) * 0.5;
-                this.vy = (Math.random() - 0.5) * 0.5;
-                this.radius = 4;
-            }
-            
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-                
-                if (this.x < 0 || this.x > width) this.vx *= -1;
-                if (this.y < 0 || this.y > height) this.vy *= -1;
-                
-                // Mouse interaction
-                let dx = mouse.x - this.x;
-                let dy = mouse.y - this.y;
-                let distance = Math.sqrt(dx * dx + dy * dy);
-                
-                if (distance < mouse.radius) {
-                    let force = (mouse.radius - distance) / mouse.radius;
-                    let angle = Math.atan2(dy, dx);
-                    this.x -= Math.cos(angle) * force * 2;
-                    this.y -= Math.sin(angle) * force * 2;
-                }
-            }
-            
-            draw() {
-                ctx.fillStyle = 'rgba(245, 152, 40, 0.5)';
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-        
-        function initPoints() {
-            points = [];
-            const numPoints = Math.floor((width * height) / 8000);
-            for (let i = 0; i < numPoints; i++) {
-                points.push(new Point(
-                    Math.random() * width,
-                    Math.random() * height
-                ));
-            }
-        }
-        
-        function drawEdges() {
-            const maxDistance = 120;
-            for (let i = 0; i < points.length; i++) {
-                for (let j = i + 1; j < points.length; j++) {
-                    let dx = points[i].x - points[j].x;
-                    let dy = points[i].y - points[j].y;
-                    let distance = Math.sqrt(dx * dx + dy * dy);
-                    
-                    if (distance < maxDistance) {
-                        let opacity = 1 - (distance / maxDistance);
-                        ctx.strokeStyle = `rgba(245, 152, 40, ${opacity * 0.3})`;
-                        ctx.lineWidth = 1;
-                        ctx.beginPath();
-                        ctx.moveTo(points[i].x, points[i].y);
-                        ctx.lineTo(points[j].x, points[j].y);
-                        ctx.stroke();
-                    }
-                }
-            }
-        }
-        
-        function drawTriangles() {
-            const maxDistance = 120;
-            for (let i = 0; i < points.length; i++) {
-                for (let j = i + 1; j < points.length; j++) {
-                    for (let k = j + 1; k < points.length; k++) {
-                        let d1 = Math.hypot(points[i].x - points[j].x, points[i].y - points[j].y);
-                        let d2 = Math.hypot(points[j].x - points[k].x, points[j].y - points[k].y);
-                        let d3 = Math.hypot(points[k].x - points[i].x, points[k].y - points[i].y);
-                        
-                        if (d1 < maxDistance && d2 < maxDistance && d3 < maxDistance) {
-                            let avgDist = (d1 + d2 + d3) / 3;
-                            let opacity = 1 - (avgDist / maxDistance);
-                            ctx.fillStyle = `rgba(245, 152, 40, ${opacity * 0.05})`;
-                            ctx.beginPath();
-                            ctx.moveTo(points[i].x, points[i].y);
-                            ctx.lineTo(points[j].x, points[j].y);
-                            ctx.lineTo(points[k].x, points[k].y);
-                            ctx.closePath();
-                            ctx.fill();
-                        }
-                    }
-                }
-            }
-        }
-        
-        function animate() {
-            ctx.clearRect(0, 0, width, height);
-            
-            drawTriangles();
-            drawEdges();
-            
-            points.forEach(point => {
-                point.update();
-                point.draw();
-            });
-            
-            requestAnimationFrame(animate);
-        }
-        
-        window.addEventListener('resize', () => {
-            resizeCanvas();
-            initPoints();
-        });
-        
-        window.addEventListener('mousemove', (e) => {
-            mouse.x = e.x;
-            mouse.y = e.y;
-        });
-        
-        window.addEventListener('mouseleave', () => {
-            mouse.x = null;
-            mouse.y = null;
-        });
-        
-        resizeCanvas();
-        initPoints();
-        animate();
-    </script>
+<nav>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#publications">Publications</a></li>
+  </ul>
+</nav>
+
+<main>
+  <section id="about">
+    <h2>About</h2>
+    <div class="card">
+      <p>
+        I am a PhD student in Applied Mathematics at Politecnico di Torino, supervised by
+        Francesco Vaccarino and Giovanni Petri. My work sits at the intersection of
+        topology, network science, and learning theory.
+      </p>
+      <p style="margin-top:1rem;">
+        I am particularly interested in how structural and topological constraints shape
+        representation, capacity, and generalization in both biological and artificial
+        systems.
+      </p>
+    </div>
+  </section>
+
+  <section id="research">
+    <h2>Research Interests</h2>
+    <div class="research-interests">
+      <div class="card interest-card">
+        <h3>Applied & Algebraic Topology</h3>
+        <p>Topological data analysis, homology, and discrete calculus for structured data.</p>
+      </div>
+      <div class="card interest-card">
+        <h3>Network Science</h3>
+        <p>Geometry and dynamics of complex networks and higher-order interactions.</p>
+      </div>
+      <div class="card interest-card">
+        <h3>Learning Theory</h3>
+        <p>Theoretical properties of neural networks, capacity, and inductive bias.</p>
+      </div>
+      <div class="card interest-card">
+        <h3>Cognition</h3>
+        <p>Mathematical perspectives on cognitive constraints and representations.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="publications">
+    <h2>Selected Publications</h2>
+
+    <div class="pub-list">
+
+    <!---- Bound by semanticity -->
+    <div class="publication">
+        <div class="pub-figure">
+            <img src="figures/bbs.svg" alt="Paper visualization">
+            <div class="pub-overlay"> </div>
+        </div>
+      <div>
+        <div class="publication-meta">Marco Nurisso, Jesseba Fernando, Raj Deshpande, Alan Perotti, Raja Marjieh, Steven M Frankland, Richard L Lewis, Taylor W Webb, Declan Campbell, Francesco Vaccarino, Jonathan D Cohen, Giovanni Petri · 2025 · arXiv</div>
+        <p>
+      <a href="https://arxiv.org/pdf/2506.14797?" target="_blank" rel="noopener">
+        Bound by semanticity: universal laws governing the generalization-identification tradeoff
+      </a>
+    </p>
+      </div>
+    </div>
+    <!---- Higher-order Laplacian Renormalization -->
+    <div class="publication">
+        <div class="pub-figure">
+            <img src="figures/holrg.svg" alt="Paper visualization">
+            <div class="pub-overlay"> </div>
+        </div>
+      <div>
+        <div class="publication-meta">Marco Nurisso, Marta Morandini, Maxime Lucas, Francesco Vaccarino, Tommaso Gili, Giovanni Petri  · 2025 · Nature Physics</div>
+        <p>
+      <a href="https://www.nature.com/articles/s41567-025-02784-1" target="_blank" rel="noopener">
+        Higher-order Laplacian renormalization
+      </a>
+    </p>
+      </div>
+    </div>
+    <!---- From Nodes to Edges: Edge-Based Laplacians for Brain Signal Processing -->
+    <div class="publication">
+        <div class="pub-figure">
+            <img src="figures/fnte.png" alt="Paper visualization">
+            <div class="pub-overlay"> </div>
+        </div>
+      <div>
+        <div class="publication-meta">Andrea Santoro, Marco Nurisso, Giovanni Petri  · 2025 · EUSIPCO 2025</div>
+        <p>
+      <a href="https://eusipco2025.org/wp-content/uploads/pdfs/0001084.pdf" target="_blank" rel="noopener">
+        From Nodes to Edges: Edge-Based Laplacians for Brain Signal Processing
+      </a>
+    </p>
+      </div>
+    </div>
+    <!---- Topological obstruction to the training of shallow ReLU neural networks -->
+    <div class="publication">
+        <div class="pub-figure">
+            <img src="figures/top.png" alt="Paper visualization">
+            <div class="pub-overlay"> </div>
+        </div>
+      <div>
+        <div class="publication-meta">Marco Nurisso, Pierrick Leroy, Francesco Vaccarino  · 2024 · NeurIPS 2025</div>
+        <p>
+      <a href="https://proceedings.neurips.cc/paper_files/paper/2024/file/3e356b84727460df86c8d0eeff1ff85d-Paper-Conference.pdf" target="_blank" rel="noopener">
+        Topological obstruction to the training of shallow ReLU neural networks
+      </a>
+    </p>
+      </div>
+    </div>
+     <!---- Attributes Shape the Embedding Space of Face Recognition Models 
+    <div class="publication">
+        <div class="pub-figure">
+            <img src="figures/asesfrm.svg" alt="Paper visualization">
+            <div class="pub-overlay"> </div>
+        </div>
+      <div>
+        <div class="publication-meta">Pierrick Leroy*, Antonio Mastropietro*, Marco Nurisso*, Francesco Vaccarino  · 2025 · ICML 2025</div>
+        <p>
+      <a href="https://openreview.net/pdf?id=VY74pP1w93" target="_blank" rel="noopener">
+        Attributes Shape the Embedding Space of Face Recognition Models
+      </a>
+    </p>
+      </div>
+    </div>  -->
+    <!---- A unified framework for simplicial Kuramoto models -->
+    <div class="publication">
+        <div class="pub-figure">
+            <img src="figures/kura.svg" alt="Paper visualization">
+            <div class="pub-overlay"> </div>
+        </div>
+      <div>
+        <div class="publication-meta">Marco Nurisso, Alexis Arnaudon, Maxime Lucas, Robert L Peach, Paul Expert, Francesco Vaccarino, Giovanni Petri  · 2024 · Chaos: An Interdisciplinary Journal of Nonlinear Science</div>
+        <p>
+      <a href="https://pubs.aip.org/aip/cha/article-abstract/34/5/053118/3289337/A-unified-framework-for-simplicial-Kuramoto-models?redirectedFrom=fulltext" target="_blank" rel="noopener">
+        A unified framework for simplicial Kuramoto models
+      </a>
+    </p>
+      </div>
+    </div>
+        </div>
+
+  </section>
+</main>
+
+<footer>
+  <p>© 2025 Marco Nurisso</p>
+  <p>Last updated: December 2025</p>
+</footer>
+
+<script>
+  // Minimal topological / geometric animation for hero banner
+  const canvas = document.getElementById('hero-canvas');
+  const ctx = canvas.getContext('2d');
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = canvas.parentElement.offsetHeight;
+  }
+
+  window.addEventListener('resize', resize);
+  resize();
+
+  let t = 0;
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.strokeStyle = 'rgba(255,255,255,0.2)';
+    ctx.lineWidth = 2;
+
+    const cols = 18;
+    const rows = 4;
+
+    for (let i = 0; i <= cols; i++) {
+      ctx.beginPath();
+      for (let j = 0; j <= rows; j++) {
+        const x = (i / cols) * canvas.width;
+        const y = (j / rows) * canvas.height +
+                  40 * Math.sin(0.2 * i + 1.5*t + j);
+        if (j === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+    }
+
+    t += 0.02;
+    requestAnimationFrame(draw);
+  }
+
+  draw();
+</script>
+
 </body>
 </html>
