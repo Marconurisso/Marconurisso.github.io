@@ -176,7 +176,7 @@
         <p>Mathematical modeling of cognitive constraints and the tradeoffs inherent in representational learning.</p>
       </div>
       <div class="interest-item">
-        <h4>Neural Loss Landscapes</h4>
+        <h4>Neural Loss Landscape</h4>
         <p>Theoretical properties of the loss landscape: symmetries and their interplay with learning.</p>
       </div>
       <div class="interest-item">
@@ -191,20 +191,28 @@
   </section>
 
   <section id="all-pubs" class="page-section">
-    <div class="controls">
+  <div class="controls">
+    <div>
       <h2>Full Publication List</h2>
-      <div>
-        <button class="sort-btn active" id="sort-new" onclick="renderAllPubs('new')">Newest</button>
-        <button class="sort-btn" id="sort-old" onclick="renderAllPubs('old')">Oldest</button>
-      </div>
+      <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: -1.5rem; margin-bottom: 2rem;">
+        For the most up-to-date list please visit my 
+        <a href="https://scholar.google.com/citations?user=vAaWpu8AAAAJ" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: 500;">
+          <i class="fa-solid fa-graduation-cap"></i> Google Scholar profile
+        </a>.
+      </p>
     </div>
-    <div id="full-list-container"></div>
-  </section>
+    <div style="align-self: flex-start;">
+      <button class="sort-btn active" id="sort-new" onclick="renderAllPubs('new')">Newest</button>
+      <button class="sort-btn" id="sort-old" onclick="renderAllPubs('old')">Oldest</button>
+    </div>
+  </div>
+  <div id="full-list-container"></div>
+</section>
 
   <section id="gallery" class="page-section">
     <h2>Illustrations</h2>
     <p style="color: var(--text-muted); margin-bottom: 3rem; max-width: 700px; font-size: 1.05rem;">
-      Beyond mathematics, I like to be creative through drawing and digital art. Here are some of my works.
+      Beyond mathematics, I like to draw and paint. Here are some of my works.
     </p>
     
     <div class="art-grid">
@@ -256,7 +264,7 @@
       venue: "EUSIPCO",
       image: "figures/fnte.png",
       link: "https://eusipco2025.org/wp-content/uploads/pdfs/0001084.pdf",
-      abstract: "Extending signal processing frameworks to edge-based representations in functional brain networks.",
+      abstract: "Extending signal processing frameworks to edge-based representations in functional brain networks. We show that a Hodge Laplacian-based filter is able to greatly improve task identification compared to standard node-based measures.",
       featured: false
     },
     {
@@ -278,7 +286,7 @@
       venue: "Chaos: An Interdisciplinary Journal of Nonlinear Science",
       image: "figures/kura.svg",
       link: "https://pubs.aip.org/aip/cha/article-abstract/34/5/053118/3289337/A-unified-framework-for-simplicial-Kuramoto-models?redirectedFrom=fulltext",
-      abstract: "Developing a general framework for synchronization dynamics on higher-order topological structures.",
+      abstract: "This work studies the different topological synchronization dynamics on higher-order simplicial complexes. We investigate equilibria, stability and how they are related to the coupling strength and the topology of the simplicial complex.",
       featured: false
     }
   ];
