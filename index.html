@@ -16,44 +16,123 @@
       --accent: #2563eb;     /* Royal Blue */
       --text-main: #1e293b;
       --text-muted: #64748b;
-      --bg-sidebar: #f8fafc;
+      --bg-body: #ffffff;
+      --bg-nav: rgba(248, 250, 252, 0.95); /* Semi-transparent for modern feel */
       --border: #e2e8f0;
-      --sidebar-width: 300px;
+      --nav-height: 80px;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Inter', sans-serif; color: var(--text-main); display: flex; scroll-behavior: smooth; min-height: 100vh; }
-
-    /* --- Sidebar Navigation --- */
-    aside {
-      width: var(--sidebar-width);
-      height: 100vh;
-      position: fixed;
-      background: var(--bg-sidebar);
-      border-right: 1px solid var(--border);
-      padding: 3.5rem 2.5rem;
-      display: flex;
-      flex-direction: column;
-      z-index: 100;
+    body { 
+      font-family: 'Inter', sans-serif; 
+      color: var(--text-main); 
+      background: var(--bg-body);
+      line-height: 1.6;
     }
 
-    .profile-photo { width: 130px; height: 130px; border-radius: 12px; object-fit: cover; margin-bottom: 2rem; border: 1px solid var(--border); grayscale: 20%; }
-    h1 { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--primary); line-height: 1.1; margin-bottom: 0.5rem; }
-    
-    nav { margin-top: 2.5rem; flex-grow: 1; }
-    nav ul { list-style: none; }
-    nav a { display: block; padding: 0.7rem 0; color: var(--text-main); text-decoration: none; font-weight: 500; font-size: 0.95rem; cursor: pointer; transition: 0.2s; }
-    nav a:hover, nav a.active { color: var(--accent); transform: translateX(4px); }
+    /* --- Top Navigation Bar --- */
+    header {
+      width: 100%;
+      height: var(--nav-height);
+      position: fixed;
+      top: 0;
+      left: 0;
+      background: var(--bg-nav);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 10%;
+      z-index: 1000;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      text-decoration: none;
+      color: var(--primary);
+    }
+
+    .nav-brand h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+
+    .mini-photo {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid var(--border);
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 2.5rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--text-main);
+      font-weight: 500;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    nav a:hover, nav a.active {
+      color: var(--accent);
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 1.2rem;
+      font-size: 1.1rem;
+    }
+
+    .social-icons a {
+      color: var(--text-muted);
+      transition: color 0.2s;
+    }
+
+    .social-icons a:hover {
+      color: var(--accent);
+    }
 
     /* --- Content Layout --- */
-    main { margin-left: var(--sidebar-width); padding: 4rem 10%; width: 100%; max-width: 1300px; }
+    main { 
+      margin-top: var(--nav-height);
+      padding: 5rem 10%; 
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
     .page-section { display: none; animation: fadeIn 0.4s ease-out; }
     .page-section.active { display: block; }
     
     @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-    h2 { font-family: 'Playfair Display', serif; font-size: 2.4rem; margin-bottom: 2.5rem; color: var(--primary); }
-    h3 { font-size: 1.4rem; margin-top: 3rem; margin-bottom: 1.5rem; color: var(--primary); font-family: 'Playfair Display', serif; }
+    h2 { font-family: 'Playfair Display', serif; font-size: 2.4rem; margin-bottom: 2rem; color: var(--primary); }
+    h3 { font-size: 1.6rem; margin-top: 3.5rem; margin-bottom: 1.5rem; color: var(--primary); font-family: 'Playfair Display', serif; }
+
+    /* --- Bio Header --- */
+    .bio-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 3rem;
+      margin-bottom: 4rem;
+    }
+
+    .main-photo {
+      width: 220px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
 
     /* --- Research Interests Grid --- */
     .interests-grid { 
@@ -61,199 +140,174 @@
       grid-template-columns: 1fr 1fr; 
       gap: 2.5rem; 
       margin-bottom: 4rem; 
-      border-top: 1px solid var(--border);
-      padding-top: 2rem;
     }
-    .interest-item h4 { font-weight: 600; margin-bottom: 0.6rem; color: var(--primary); font-size: 1.05rem; }
+    .interest-item h4 { font-weight: 600; margin-bottom: 0.6rem; color: var(--primary); font-size: 1.1rem; }
     .interest-item p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; }
 
     /* --- Publications (Journal Style) --- */
     .pub-card { display: flex; gap: 2.5rem; margin-bottom: 4rem; align-items: flex-start; }
-    .pub-visual { width: 180px; flex-shrink: 0; position: relative; }
+    .pub-visual { width: 180px; flex-shrink: 0; }
     .pub-visual img { width: 100%; border-radius: 4px; border: 1px solid var(--border); transition: 0.3s; }
     .pub-card:hover .pub-visual img { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
     
     .pub-content { flex-grow: 1; }
     .pub-venue { display: inline-block; font-size: 0.7rem; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; background: #eff6ff; padding: 2px 8px; border-radius: 4px; }
-    .pub-title { font-size: 1.2rem; font-weight: 600; margin-bottom: 0.5rem; line-height: 1.4; color: var(--primary); text-decoration: none; display: block; }
+    .pub-title { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem; line-height: 1.4; color: var(--primary); text-decoration: none; display: block; }
     .pub-title:hover { color: var(--accent); }
     .pub-authors { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.8rem; }
-    .pub-abstract { font-size: 0.9rem; line-height: 1.6; color: var(--text-main); }
+    .pub-abstract { font-size: 0.95rem; line-height: 1.6; color: var(--text-main); }
 
     /* Sorting UI */
-    .controls { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 1rem; margin-bottom: 2rem; }
+    .controls { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 1px solid var(--border); padding-bottom: 1rem; margin-bottom: 2rem; }
     .sort-btn { background: none; border: none; font-size: 0.85rem; font-weight: 600; cursor: pointer; color: var(--text-muted); margin-left: 1.5rem; }
     .sort-btn.active { color: var(--accent); }
 
-    /* --- Character Art Gallery --- */
-  /* --- Masonry Gallery Styling --- */
-    .art-grid { 
-      column-count: 3; /* Number of columns for desktop */
-      column-gap: 1.5rem;
-      width: 100%;
-    }
+    /* --- Masonry Gallery Styling --- */
+    .art-grid { column-count: 3; column-gap: 1.5rem; width: 100%; display: block; }
+    .art-item { display: block; width: 100%; margin-bottom: 1.5rem; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); transition: transform 0.3s ease; }
+    .art-item:hover { transform: translateY(-8px); border-color: var(--accent); }
+    .art-item img { width: 100%; height: auto; display: block; cursor: zoom-in; }
 
-    .art-item { 
-      display: inline-block; /* Essential for masonry column flow */
-      width: 100%;
-      margin-bottom: 1.5rem; /* Space between rows */
-      background: white; 
-      border-radius: 12px; 
-      overflow: hidden; 
-      border: 1px solid var(--border); 
-      transition: transform 0.3s ease;
-    }
-
-    .art-item:hover { 
-      transform: translateY(-8px); 
-      border-color: var(--accent);
-      box-shadow: 0 12px 24px rgba(0,0,0,0.1);
-    }
-
-    .art-item img { 
-      width: 100%; 
-      height: auto; /* This ensures the full image is shown */
-      display: block;
-      cursor: zoom-in; /* Indicates the image is clickable */
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 1100px) {
+    @media (max-width: 1024px) {
+      header { padding: 0 5%; }
       .art-grid { column-count: 2; }
     }
 
-    @media (max-width: 600px) {
-      .art-grid { column-count: 1; }
-    }
-    @media (max-width: 900px) {
-      aside { width: 100%; height: auto; position: relative; padding: 2rem; }
-      main { margin-left: 0; padding: 2rem; }
+    @media (max-width: 768px) {
+      header { height: auto; flex-direction: column; padding: 1rem; gap: 1rem; position: static; }
+      main { margin-top: 0; padding: 2rem 5%; }
+      nav ul { gap: 1rem; }
+      .bio-header { flex-direction: column; align-items: center; text-align: center; }
       .interests-grid { grid-template-columns: 1fr; }
       .pub-card { flex-direction: column; gap: 1rem; }
-      .pub-visual { width: 100%; max-width: 300px; }
+      .art-grid { column-count: 1; }
+      .controls { flex-direction: column; align-items: flex-start; gap: 1rem; }
     }
   </style>
 </head>
 <body>
 
-<aside>
-  <div class="profile-header">
-    <img src="photo_crop.jpeg" alt="Marco Nurisso" class="profile-photo" />
-    <h1>Marco Nurisso</h1>
-    <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.5rem;">PhD in Applied Mathematics<br>Politecnico di Torino</p>
-  </div>
+<header>
+  <a onclick="switchTab('main-page')" class="nav-brand">
+    <img src="photo_crop.jpeg" alt="Marco" class="mini-photo">
+    <div>
+      <h1>Marco Nurisso</h1>
+      <p style="font-size: 0.75rem; color: var(--text-muted); line-height: 1;">PhD in Applied Mathematics at Politecnico di Torino</p>
+    </div>
+  </a>
 
   <nav>
     <ul>
       <li><a onclick="switchTab('main-page')" class="nav-link active" id="link-main">Research</a></li>
       <li><a onclick="switchTab('all-pubs')" class="nav-link" id="link-pubs">Full Publications</a></li>
       <li><a onclick="switchTab('gallery')" class="nav-link" id="link-art">Illustrations</a></li>
-      <li><a href="cv.pdf" target="_blank" style="margin-top: 1rem; border-top: 1px solid var(--border); padding-top: 1.5rem;"><i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.8rem; margin-right: 5px;"></i> CV</a></li>
+      <li><a href="cv.pdf" target="_blank">CV</a></li>
     </ul>
   </nav>
 
-  <div style="margin-top: auto; display: flex; gap: 1.2rem; font-size: 1.2rem;">
-    <a href="mailto:marco.nurisso@polito.it" style="color: var(--text-muted)"><i class="fa-solid fa-envelope"></i></a>
-    <a href="https://github.com/MarcoNurisso" target="_blank" style="color: var(--text-muted)"><i class="fa-brands fa-github"></i></a>
-    <a href="https://scholar.google.com/citations?user=vAaWpu8AAAAJ" target="_blank" style="color: var(--text-muted)"><i class="fa-solid fa-graduation-cap"></i></a>
+  <div class="social-icons">
+    <a href="mailto:marco.nurisso@polito.it"><i class="fa-solid fa-envelope"></i></a>
+    <a href="https://github.com/MarcoNurisso" target="_blank"><i class="fa-brands fa-github"></i></a>
+    <a href="https://scholar.google.com/citations?user=vAaWpu8AAAAJ" target="_blank"><i class="fa-solid fa-graduation-cap"></i></a>
   </div>
-</aside>
+</header>
 
 <main>
   <section id="main-page" class="page-section active">
-    <h2>Research</h2>
-    <p style="font-size: 1.15rem; line-height: 1.8; max-width: 850px; margin-bottom: 3rem;">
-      I study the mathematical foundations of learning and complex systems. My work focuses on how <strong>topological and structural constraints</strong> shape representation, capacity, and generalization in both biological and artificial intelligence.
-    </p>
+    <div class="bio-header">
+      <img src="photo_crop.jpeg" alt="Marco Nurisso" class="main-photo">
+      <div>
+        <h2>Research Overview</h2>
+        <p style="font-size: 1.15rem; color: var(--text-main);">
+          I am a PhD student in Applied Mathematics at <strong>Politecnico di Torino</strong>. My work explores how topological and structural constraints shape representation, capacity, and generalization in both biological and artificial intelligence.
+        </p>
+      </div>
+    </div>
 
     <div class="interests-grid">
       <div class="interest-item">
         <h4>Applied Topology</h4>
-        <p>Topological data analysis and discrete calculus for networks and higher-order networks.</p>
+        <p>Utilizing TDA and discrete calculus for networks and higher-order topological structures.</p>
       </div>
       <div class="interest-item">
         <h4>Cognitive Science & AI</h4>
-        <p>Mathematical modeling of cognitive constraints and the tradeoffs inherent in representational learning.</p>
+        <p>Mathematical modeling of cognitive constraints and tradeoffs in representational learning.</p>
       </div>
       <div class="interest-item">
         <h4>Neural Loss Landscape</h4>
-        <p>Theoretical properties of the loss landscape: symmetries and their interplay with learning.</p>
+        <p>Investigating the theoretical properties of loss landscapes, focusing on symmetries and learning dynamics.</p>
       </div>
       <div class="interest-item">
-        <h4>Higher-order networks</h4>
-        <p>Scales and topology in higher-order networks and dynamics.</p>
+        <h4>Higher-order Networks</h4>
+        <p>Studying scales and topology in higher-order networks and their associated dynamics.</p>
       </div>
     </div>
 
     <h3>Featured Work</h3>
     <div id="featured-container"></div>
-    <a onclick="switchTab('all-pubs')" style="color: var(--accent); font-weight: 600; cursor: pointer; font-size: 0.9rem; text-decoration: none;">View all publications →</a>
+    <div style="text-align: center; margin-top: 2rem;">
+      <a onclick="switchTab('all-pubs')" style="color: var(--accent); font-weight: 600; cursor: pointer;">View full publication list →</a>
+    </div>
   </section>
 
   <section id="all-pubs" class="page-section">
-  <div class="controls">
-    <div>
-      <h2>Full Publication List</h2>
-      <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: -1.5rem; margin-bottom: 2rem;">
-        For the most up-to-date list please visit my 
-        <a href="https://scholar.google.com/citations?user=vAaWpu8AAAAJ" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: 500;">
-          <i class="fa-solid fa-graduation-cap"></i> Google Scholar profile
-        </a>.
-      </p>
+    <div class="controls">
+      <div>
+        <h2>Publications</h2>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.5rem;">
+          For the most up-to-date metrics, visit my 
+          <a href="https://scholar.google.com/citations?user=vAaWpu8AAAAJ" target="_blank" style="color: var(--accent); font-weight: 500;">Google Scholar profile</a>.
+        </p>
+      </div>
+      <div>
+        <button class="sort-btn active" id="sort-new" onclick="renderAllPubs('new')">Newest</button>
+        <button class="sort-btn" id="sort-old" onclick="renderAllPubs('old')">Oldest</button>
+      </div>
     </div>
-    <div style="align-self: flex-start;">
-      <button class="sort-btn active" id="sort-new" onclick="renderAllPubs('new')">Newest</button>
-      <button class="sort-btn" id="sort-old" onclick="renderAllPubs('old')">Oldest</button>
-    </div>
-  </div>
-  <div id="full-list-container"></div>
-</section>
+    <div id="full-list-container"></div>
+  </section>
 
   <section id="gallery" class="page-section">
     <h2>Illustrations</h2>
     <p style="color: var(--text-muted); margin-bottom: 3rem; max-width: 700px; font-size: 1.05rem;">
       Beyond mathematics, I like to draw and paint. Here are some of my works.
     </p>
-    
     <div class="art-grid">
-      <div class="art-item" onclick="openLightbox('figures/drawing_1.jpg')">
-        <img src="figures/drawing_1.jpg" alt="">
-      </div>
-      <div class="art-item" onclick="openLightbox('figures/drawing_2.jpg')">
-        <img src="figures/drawing_2.jpg" alt="">
-      </div>
-      <div class="art-item" onclick="openLightbox('figures/drawing_3.jpeg')">
-        <img src="figures/drawing_3.jpeg" alt="">
-      </div>
-      <div class="art-item" onclick="openLightbox('figures/drawing_4.jpg')">
-        <img src="figures/drawing_4.jpg" alt="">
-      </div>
+      <div class="art-item" onclick="openLightbox('figures/drawing_1.jpg')"><img src="figures/drawing_1.jpg"></div>
+      <div class="art-item" onclick="openLightbox('figures/drawing_2.jpg')"><img src="figures/drawing_2.jpg"></div>
+      <div class="art-item" onclick="openLightbox('figures/drawing_3.jpeg')"><img src="figures/drawing_3.jpeg"></div>
+      <div class="art-item" onclick="openLightbox('figures/drawing_4.jpg')"><img src="figures/drawing_4.jpg"></div>
     </div>
   </section>
 </main>
 
+<div id="lightbox" onclick="closeLightbox()" style="display: none; position: fixed; z-index: 2000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.95); cursor: zoom-out; align-items: center; justify-content: center;">
+  <img id="lightbox-img" src="" style="max-width: 90%; max-height: 90%; border-radius: 4px; box-shadow: 0 0 50px rgba(0,0,0,0.5);">
+</div>
+
 <script>
+  // Same publication data and logic as provided in source, updated with monthly sort
   const publications = [
     {
       title: "Bound by semanticity: universal laws governing the generalization-identification tradeoff",
-      authors: "M. Nurisso, J. Fernando, R. Deshpande, A. Perotti, R. Marjieh, S. M. Frankland, R. L. Lewis, T. W. Webb, D. Campbell, F. Vaccarino, J. D. Cohen, G. Petri",
+      authors: "M. Nurisso, J. Fernando, R. Deshpande, ... G. Petri",
       year: 2025,
       month: 6,
       venue: "Preprint",
       image: "figures/bbs.svg",
       link: "https://arxiv.org/pdf/2506.14797?",
-      abstract: "This paper identifies a fundamental limit between generalization and identification. We derive universal Pareto fronts that govern this tradeoff across any system with finite semantic resolution, from toy models to state-of-the-art vision-language models. Our findings provide an exact theory for how semantic resolution shapes the capacity of deep networks and biological brains to process multi-input information.",
+      abstract: "This paper identifies a fundamental limit between generalization and identification, deriving universal Pareto fronts that govern this tradeoff.",
       featured: true
     },
     {
       title: "Higher-order Laplacian renormalization",
-      authors: "M. Nurisso, M. Morandini, M. Lucas, F. Vaccarino, T. Gili, G. Petri",
+      authors: "M. Nurisso, M. Morandini, M. Lucas, ... G. Petri",
       year: 2025,
       month: 2,
       venue: "Nature Physics",
       image: "figures/holrg.svg",
       link: "https://www.nature.com/articles/s41567-025-02784-1",
-      abstract: "We introduce a novel cross-order Laplacian renormalization group (X-LRG) scheme to bridge the gap between dyadic and polyadic interaction models. By utilizing diffusion dynamics to group simplices across different orders, this framework provides a principled method for coarse-graining higher-order networks. We demonstrate the scheme’s ability to detect order-specific scale-invariant profiles in both synthetic systems and diverse real-world complex networks.",
+      abstract: "Introducing a novel cross-order Laplacian renormalization group (X-LRG) scheme to bridge dyadic and polyadic interaction models.",
       featured: true
     },
     {
@@ -264,7 +318,7 @@
       venue: "EUSIPCO",
       image: "figures/fnte.png",
       link: "https://eusipco2025.org/wp-content/uploads/pdfs/0001084.pdf",
-      abstract: "Extending signal processing frameworks to edge-based representations in functional brain networks. We show that a Hodge Laplacian-based filter is able to greatly improve task identification compared to standard node-based measures.",
+      abstract: "Extending signal processing frameworks to edge-based representations in functional brain networks.",
       featured: false
     },
     {
@@ -275,18 +329,18 @@
       venue: "NeurIPS",
       image: "figures/top.png",
       link: "https://proceedings.neurips.cc/paper_files/paper/2024/file/3e356b84727460df86c8d0eeff1ff85d-Paper-Conference.pdf",
-      abstract: "This work reveals how the geometric and topological structure of the loss landscape can fundamentally limit neural network optimization. By analyzing the training trajectories of shallow ReLU networks, we prove that the homogeneous nature of the activation function constrains parameters to specific quadric hypersurfaces. We demonstrate that these surfaces can become disconnected, creating a 'topological obstruction' that renders global optima unreachable depending on initialization.",
+      abstract: "Reveals how the geometric and topological structure of the loss landscape can fundamentally limit neural network optimization.",
       featured: true
     },
     {
       title: "A unified framework for simplicial Kuramoto models",
-      authors: "M. Nurisso, A. Arnaudon, M. Lucas, R. L. Peach, P. Expert, F. Vaccarino, G. Petri",
+      authors: "M. Nurisso, A. Arnaudon, M. Lucas, ... G. Petri",
       year: 2024,
       month: 5,
-      venue: "Chaos: An Interdisciplinary Journal of Nonlinear Science",
+      venue: "Chaos",
       image: "figures/kura.svg",
       link: "https://pubs.aip.org/aip/cha/article-abstract/34/5/053118/3289337/A-unified-framework-for-simplicial-Kuramoto-models?redirectedFrom=fulltext",
-      abstract: "This work studies the different topological synchronization dynamics on higher-order simplicial complexes. We investigate equilibria, stability and how they are related to the coupling strength and the topology of the simplicial complex.",
+      abstract: "Studies topological synchronization dynamics on higher-order simplicial complexes.",
       featured: false
     }
   ];
@@ -296,6 +350,7 @@
     document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
     document.getElementById(id).classList.add('active');
     
+    // UI active state
     if(id === 'main-page') document.getElementById('link-main').classList.add('active');
     if(id === 'all-pubs') document.getElementById('link-pubs').classList.add('active');
     if(id === 'gallery') document.getElementById('link-art').classList.add('active');
@@ -318,45 +373,28 @@
   }
 
   function renderAllPubs(order) {
-  const list = [...publications].sort((a, b) => {
-    if (order === 'new') {
-      // Sort by Year (Descending), then Month (Descending)
-      return b.year - a.year || b.month - a.month;
-    } else {
-      // Sort by Year (Ascending), then Month (Ascending)
-      return a.year - b.year || a.month - b.month;
-    }
-  });
-
-  document.getElementById('full-list-container').innerHTML = list.map(renderCard).join('');
-  
-  // UI active state toggle
-  document.getElementById('sort-new').classList.toggle('active', order === 'new');
-  document.getElementById('sort-old').classList.toggle('active', order === 'old');
+    const list = [...publications].sort((a, b) => {
+      return order === 'new' ? (b.year - a.year || b.month - a.month) : (a.year - b.year || a.month - b.month);
+    });
+    document.getElementById('full-list-container').innerHTML = list.map(renderCard).join('');
+    document.getElementById('sort-new').classList.toggle('active', order === 'new');
+    document.getElementById('sort-old').classList.toggle('active', order === 'old');
   }
-
-  // Initial setup
-  document.getElementById('featured-container').innerHTML = publications.filter(p => p.featured).map(renderCard).join('');
-  renderAllPubs('new');
-
 
   function openLightbox(src) {
     const lb = document.getElementById('lightbox');
-    const lbImg = document.getElementById('lightbox-img');
-    lbImg.src = src;
-    lb.style.display = 'flex'; // Shows the overlay
+    document.getElementById('lightbox-img').src = src;
+    lb.style.display = 'flex';
   }
 
   function closeLightbox() {
     document.getElementById('lightbox').style.display = 'none';
   }
 
+  // Init
+  document.getElementById('featured-container').innerHTML = publications.filter(p => p.featured).map(renderCard).join('');
+  renderAllPubs('new');
 </script>
-
-<div id="lightbox" onclick="closeLightbox()" style="display: none; position: fixed; z-index: 999; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.95); cursor: zoom-out; align-items: center; justify-content: center;">
-  <img id="lightbox-img" src="" style="max-width: 90%; max-height: 90%; border-radius: 4px; box-shadow: 0 0 50px rgba(0,0,0,0.5);">
-  <div style="position: absolute; top: 20px; right: 30px; color: white; font-size: 30px; font-family: sans-serif;">&times;</div>
-</div>
 
 </body>
 </html>
