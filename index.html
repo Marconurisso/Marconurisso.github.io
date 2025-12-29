@@ -148,7 +148,7 @@
     .pub-card { display: flex; gap: 2.5rem; margin-bottom: 4rem; align-items: flex-start; }
     .pub-visual { width: 180px; flex-shrink: 0; }
     .pub-visual img { width: 100%; border-radius: 4px; border: 1px solid var(--border); transition: 0.3s; }
-    .pub-card:hover .pub-visual img { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+    .pub-card:hover .pub-visual img { transform: translateY(-5px); box-shadow: none; }
     
     .pub-content { flex-grow: 1; }
     .pub-venue { display: inline-block; font-size: 0.7rem; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; background: #eff6ff; padding: 2px 8px; border-radius: 4px; }
@@ -189,7 +189,6 @@
 
 <header>
   <a onclick="switchTab('main-page')" class="nav-brand">
-    <img src="photo_crop.jpeg" alt="Marco" class="mini-photo">
     <div>
       <h1>Marco Nurisso</h1>
       <p style="font-size: 0.75rem; color: var(--text-muted); line-height: 1;">PhD in Applied Mathematics at Politecnico di Torino</p>
@@ -243,7 +242,7 @@
       </div>
     </div>
 
-    <h3>Featured Work</h3>
+    <h3>Selected Publications</h3>
     <div id="featured-container"></div>
     <div style="text-align: center; margin-top: 2rem;">
       <a onclick="switchTab('all-pubs')" style="color: var(--accent); font-weight: 600; cursor: pointer;">View full publication list →</a>
@@ -286,28 +285,27 @@
 </div>
 
 <script>
-  // Same publication data and logic as provided in source, updated with monthly sort
-  const publications = [
+const publications = [
     {
       title: "Bound by semanticity: universal laws governing the generalization-identification tradeoff",
-      authors: "M. Nurisso, J. Fernando, R. Deshpande, ... G. Petri",
+      authors: "M. Nurisso, J. Fernando, R. Deshpande, A. Perotti, R. Marjieh, S. M. Frankland, R. L. Lewis, T. W. Webb, D. Campbell, F. Vaccarino, J. D. Cohen, G. Petri",
       year: 2025,
       month: 6,
       venue: "Preprint",
       image: "figures/bbs.svg",
       link: "https://arxiv.org/pdf/2506.14797?",
-      abstract: "This paper identifies a fundamental limit between generalization and identification, deriving universal Pareto fronts that govern this tradeoff.",
+      abstract: "This paper identifies a fundamental limit between generalization and identification. We derive universal Pareto fronts that govern this tradeoff across any system with finite semantic resolution, from toy models to state-of-the-art vision-language models. Our findings provide an exact theory for how semantic resolution shapes the capacity of deep networks and biological brains to process multi-input information.",
       featured: true
     },
     {
       title: "Higher-order Laplacian renormalization",
-      authors: "M. Nurisso, M. Morandini, M. Lucas, ... G. Petri",
+      authors: "M. Nurisso, M. Morandini, M. Lucas, F. Vaccarino, T. Gili, G. Petri",
       year: 2025,
       month: 2,
       venue: "Nature Physics",
       image: "figures/holrg.svg",
       link: "https://www.nature.com/articles/s41567-025-02784-1",
-      abstract: "Introducing a novel cross-order Laplacian renormalization group (X-LRG) scheme to bridge dyadic and polyadic interaction models.",
+      abstract: "We introduce a novel cross-order Laplacian renormalization group (X-LRG) scheme to bridge the gap between dyadic and polyadic interaction models. By utilizing diffusion dynamics to group simplices across different orders, this framework provides a principled method for coarse-graining higher-order networks. We demonstrate the scheme’s ability to detect order-specific scale-invariant profiles in both synthetic systems and diverse real-world complex networks.",
       featured: true
     },
     {
@@ -318,7 +316,7 @@
       venue: "EUSIPCO",
       image: "figures/fnte.png",
       link: "https://eusipco2025.org/wp-content/uploads/pdfs/0001084.pdf",
-      abstract: "Extending signal processing frameworks to edge-based representations in functional brain networks.",
+      abstract: "Extending signal processing frameworks to edge-based representations in functional brain networks. We show that a Hodge Laplacian-based filter is able to greatly improve task identification compared to standard node-based measures.",
       featured: false
     },
     {
@@ -329,18 +327,40 @@
       venue: "NeurIPS",
       image: "figures/top.png",
       link: "https://proceedings.neurips.cc/paper_files/paper/2024/file/3e356b84727460df86c8d0eeff1ff85d-Paper-Conference.pdf",
-      abstract: "Reveals how the geometric and topological structure of the loss landscape can fundamentally limit neural network optimization.",
+      abstract: "This work reveals how the geometric and topological structure of the loss landscape can fundamentally limit neural network optimization. By analyzing the training trajectories of shallow ReLU networks, we prove that the homogeneous nature of the activation function constrains parameters to specific quadric hypersurfaces. We demonstrate that these surfaces can become disconnected, creating a 'topological obstruction' that renders global optima unreachable depending on initialization.",
       featured: true
     },
     {
       title: "A unified framework for simplicial Kuramoto models",
-      authors: "M. Nurisso, A. Arnaudon, M. Lucas, ... G. Petri",
+      authors: "M. Nurisso, A. Arnaudon, M. Lucas, R. L. Peach, P. Expert, F. Vaccarino, G. Petri",
       year: 2024,
       month: 5,
-      venue: "Chaos",
+      venue: "Chaos: An Interdisciplinary Journal of Nonlinear Science",
       image: "figures/kura.svg",
       link: "https://pubs.aip.org/aip/cha/article-abstract/34/5/053118/3289337/A-unified-framework-for-simplicial-Kuramoto-models?redirectedFrom=fulltext",
-      abstract: "Studies topological synchronization dynamics on higher-order simplicial complexes.",
+      abstract: "This work studies the different topological synchronization dynamics on higher-order simplicial complexes. We investigate equilibria, stability and how they are related to the coupling strength and the topology of the simplicial complex.",
+      featured: false
+    },
+    {
+      title: "Network-based kinetic models: Emergence of a statistical description of the graph topology",
+      authors: "M. Nurisso, M. Raviola, A. Tosin",
+      year: 2024,
+      month: 2,
+      venue: "European Journal of Applied Mathematics",
+      image: "figures/boltz.svg",
+      link: "https://www.cambridge.org/core/journals/european-journal-of-applied-mathematics/article/networkbased-kinetic-models-emergence-of-a-statistical-description-of-the-graph-topology/A365702EF41F3555C043941BC5F9274D",
+      abstract: "In this paper, we propose a novel approach that employs kinetic equations to describe the collective dynamics emerging from graph-mediated pairwise interactions in multi-agent systems. We formally show that for large graphs and specific classes of interactions a statistical description of the graph topology, given in terms of the degree distribution embedded in a Boltzmann-type kinetic equation, is sufficient to capture the collective trends of networked interacting systems.",
+      featured: false
+    },
+    {
+      title: "Attributes Shape the Embedding Space of Face Recognition Models",
+      authors: "P. Leroy, A. Mastropietro, M. Nurisso, F. Vaccarino",
+      year: 2025,
+      month: 7,
+      venue: "ICML",
+      image: "figures/face.svg",
+      link: "https://openreview.net/forum?id=VY74pP1w93",
+      abstract: "We observe a multiscale geometric structure emerging in the embedding space of deep face recognition models, influenced by interpretable facial (e.g., hair color) and image attributes (e.g., contrast). We propose a geometric approach to describe the dependence or invariance of FR models to these attributes and introduce a physics-inspired alignment metric. Our findings reveal that the models exhibit varying degrees of invariance across different attributes, providing insight into their strengths and weaknesses and enabling deeper interpretability. ",
       featured: false
     }
   ];
@@ -358,19 +378,23 @@
     window.scrollTo(0, 0);
   }
 
-  function renderCard(p) {
-    return `
-      <div class="pub-card">
-        <div class="pub-visual"><img src="${p.image}" alt="fig"></div>
-        <div class="pub-content">
-          <span class="pub-venue">${p.venue} · ${p.year}</span>
-          <a href="${p.link}" target="_blank" class="pub-title">${p.title}</a>
-          <div class="pub-authors">${p.authors}</div>
-          <p class="pub-abstract">${p.abstract}</p>
+    function renderCard(p) {
+      return `
+        <div class="pub-card">
+          <div class="pub-visual">
+            <a href="${p.link}" target="_blank">
+              <img src="${p.image}" alt="fig">
+            </a>
+          </div>
+          <div class="pub-content">
+            <span class="pub-venue">${p.venue} · ${p.year}</span>
+            <a href="${p.link}" target="_blank" class="pub-title">${p.title}</a>
+            <div class="pub-authors">${p.authors}</div>
+            <p class="pub-abstract">${p.abstract}</p>
+          </div>
         </div>
-      </div>
-    `;
-  }
+      `;
+    }
 
   function renderAllPubs(order) {
     const list = [...publications].sort((a, b) => {
